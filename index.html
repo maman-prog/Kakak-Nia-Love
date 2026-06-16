@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+
+<!-- 🔥 WAJIB BIAR RESPONSIVE -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Love For Kak Nia ❤️</title>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+
+    background-image: url("nia.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    font-family: Arial, sans-serif;
+    color: white;
+    overflow: hidden;
+
+    /* 🔥 FLEX BIAR RAPI DI HP */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🌫️ OVERLAY */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 0;
+}
+
+/* ❤️ TEKS */
+h1 {
+    font-size: 6vw;
+    text-align: center;
+    z-index: 1;
+    animation: glow 1s infinite alternate;
+}
+
+/* 💬 LIRIK */
+#lirik {
+    margin-top: 10px;
+    font-size: 5vw;
+    color: pink;
+    z-index: 1;
+}
+
+/* 💌 TOMBOL */
+button {
+    margin-top: 30px;
+    padding: 12px 25px;
+    font-size: 4vw;
+    background: pink;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+/* 🎁 POPUP */
+#popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 2;
+    width: 80%;
+    max-width: 300px;
+    transition: 0.3s;
+}
+
+#popup.show {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* ✨ GLOW */
+@keyframes glow {
+    from { text-shadow: 0 0 10px red; }
+    to { text-shadow: 0 0 30px pink; }
+}
+
+/* 📸 FOTO JATUH */
+.heart {
+    position: absolute;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+    }
+}
+</style>
+
+</head>
+<body>
+
+<h1>I LOVE YOU KAK NIA ❤️</h1>
+
+<p id="lirik"></p>
+
+<button onclick="playMusic()">Klik Aku 💌</button>
+
+<!-- 🎁 POPUP -->
+<div id="popup">
+    <h2>SEMOGA CANTIK TERUS ❤️</h2>
+    <p>ADAKAH 100RIBU DARI SITU 😄</p>
+    <p>351601048002531 BRI</p>
+</div>
+
+<!-- 🎵 MUSIK -->
+<audio id="music">
+    <source src="angin_malam.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// ▶️ PLAY MUSIC
+function playMusic() {
+    let music = document.getElementById("music");
+
+    music.currentTime = 26;
+    music.play();
+
+    document.getElementById("popup").classList.add("show");
+}
+
+// 💬 LIRIK
+const lyrics = [
+    { time: 2, text: "Angin malam..." },
+    { time: 5, text: "Sampaikan salam..." },
+    { time: 9, text: "Untuk dia yang ku sayang ❤️" }
+];
+
+const music = document.getElementById("music");
+
+music.addEventListener("timeupdate", () => {
+    let currentTime = music.currentTime;
+
+    for (let i = 0; i < lyrics.length; i++) {
+        if (currentTime >= lyrics[i].time) {
+            document.getElementById("lirik").innerText = lyrics[i].text;
+        }
+    }
+});
+
+// 📸 FOTO JATUH
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+
+    let size = 80 + Math.random() * 60;
+
+    heart.innerHTML = `<img src='nia.jpg' width='${size}' 
+    style='border-radius:15px; box-shadow:0 0 15px pink;'>`;
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+}
+
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
